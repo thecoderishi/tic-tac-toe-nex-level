@@ -2,13 +2,20 @@ let status = document.querySelector('.status');
 let reset = document.querySelector(".reset");
 let cells = document.querySelectorAll('.game-cell');
 
+//Weights of players
+let playerOWeights = document.querySelectorAll('.player-o-weight');
+let playerXWeights = document.querySelectorAll('.player-x-weight');
+
 // Players Symbols
 const xSymbol = '×';
 const oSymbol = '○';
 
+//Game Variables
 let isGameLive = true;
 let isXNext = true;
 
+
+//Winner Declaration
 const whoWon = (symbol) => {
     console.log(symbol);
     isGameLive = false;
@@ -33,7 +40,6 @@ const checkGameStatus = () => {
 
 
     //Checking Wining Conditions
-
     if (zeroZero && zeroZero === zeroOne && zeroOne === zeroTwo) {
         whoWon(zeroZero);
         cells[0].classList.add('won');
@@ -103,25 +109,66 @@ const handleReset = () => {
         cell.classList.remove('won');
     }
     isGameLive = true;
-    
+    let i = 1;
+    for (const playerXWeight of playerXWeights) {
+        playerXWeight.innerText = i;
+        i++;
+    }
+    let j = 6;
+    for (const playerOWeight of playerOWeights) {
+        playerOWeight.innerText = j;
+        j--;
+    }
 }
 
+
 // Game Cell Handle
+let weight;
 const handleCellClick = (e) => {
+    weight = parseInt(e.target.innerText);
     const classList = e.target.classList;
-    if (!isGameLive || classList[1] === 'x' || classList[1] === 'o') {
+    if (!isGameLive || (weightOfX===undefined && weightOfO===undefined) || weightOfX<=weight || weightOfO<=weight) {
         return;
     }
     if (isXNext) {
+        classList.remove('o')
         classList.add('x');
+        e.target.innerText = weightOfX;
         checkGameStatus();
     } else {
+        classList.remove('x')
         classList.add('o');
+        e.target.innerText = weightOfO;
         checkGameStatus();
     }
-    
+    console.log("weight", weight);
 }
 
+
+//Player's Weights Handle
+let weightOfX;
+let weightOfO;
+const handlePlayerX = (e) => {
+    weightOfX = parseInt(e.target.innerText);
+    e.target.innerText='X';
+    console.log(weightOfX);
+}
+
+const handlePlayerO = (e) => {
+    weightOfO = parseInt(e.target.innerText);
+    e.target.innerText = '0';
+    console.log(weightOfX);
+}
+
+
+//PlayerX Event Lisner
+for (const playerXWeight of playerXWeights) {
+    playerXWeight.addEventListener('click', handlePlayerX);
+}
+//PlayerO Event Lisner
+for (const playerOWeight of playerOWeights) {
+    playerOWeight.addEventListener('click', handlePlayerO);
+}
 
 //Event Listner Reset
 reset.addEventListener('click', handleReset);
