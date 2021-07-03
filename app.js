@@ -45,43 +45,43 @@ const checkGameStatus = () => {
         cells[0].classList.add('won');
         cells[1].classList.add('won');
         cells[2].classList.add('won');
-    }else
+    } else
     if (oneZero && oneZero === oneOne && oneOne === oneTwo) {
         whoWon(oneZero);
         cells[3].classList.add('won');
         cells[4].classList.add('won');
         cells[5].classList.add('won');
-    }else
+    } else
     if (twoZero && twoZero === twoOne && twoOne === twoTwo) {
         whoWon(twoZero);
         cells[6].classList.add('won');
         cells[7].classList.add('won');
         cells[8].classList.add('won');
-    }else
+    } else
     if (zeroZero && zeroZero === oneZero && oneZero === twoZero) {
         whoWon(zeroZero);
         cells[0].classList.add('won');
         cells[3].classList.add('won');
         cells[6].classList.add('won');
-    }else
+    } else
     if (zeroOne && zeroOne === oneOne && oneOne === twoOne) {
         whoWon(zeroOne);
         cells[1].classList.add('won');
         cells[4].classList.add('won');
         cells[7].classList.add('won');
-    }else
+    } else
     if (zeroTwo && zeroTwo === oneTwo && oneTwo === twoTwo) {
         whoWon(zeroTwo);
         cells[2].classList.add('won');
         cells[5].classList.add('won');
         cells[8].classList.add('won');
-    }else
+    } else
     if (zeroZero && zeroZero === oneOne && oneOne === twoTwo) {
         whoWon(zeroZero);
         cells[0].classList.add('won');
         cells[4].classList.add('won');
         cells[8].classList.add('won');
-    }else
+    } else
     if (zeroTwo && zeroTwo === oneOne && oneOne === twoZero) {
         whoWon(zeroTwo);
         cells[2].classList.add('won');
@@ -91,8 +91,7 @@ const checkGameStatus = () => {
         isXNext = !isXNext;
         if (isXNext) {
             status.innerHTML = `${xSymbol} is next`;
-        }
-        else {
+        } else {
             status.innerHTML = `<span>${oSymbol} is next</span>`;
         }
     }
@@ -102,11 +101,14 @@ const checkGameStatus = () => {
 //Reset Handler
 const handleReset = () => {
     isXNext = true;
+    weightOfX = undefined;
+    weightOfO = undefined;
     status.innerHTML = `${xSymbol} is next`;
     for (const cell of cells) {
         cell.classList.remove('x');
         cell.classList.remove('o');
         cell.classList.remove('won');
+        cell.innerText = 0;
     }
     isGameLive = true;
     let i = 1;
@@ -127,18 +129,20 @@ let weight;
 const handleCellClick = (e) => {
     weight = parseInt(e.target.innerText);
     const classList = e.target.classList;
-    if (!isGameLive || (weightOfX===undefined && weightOfO===undefined) || weightOfX<=weight || weightOfO<=weight) {
+    if (!isGameLive || (weightOfX === undefined && weightOfO === undefined) || weightOfX <= weight || weightOfO <= weight) {
         return;
     }
     if (isXNext) {
         classList.remove('o')
         classList.add('x');
         e.target.innerText = weightOfX;
+        weightOfX = undefined;
         checkGameStatus();
     } else {
         classList.remove('x')
         classList.add('o');
         e.target.innerText = weightOfO;
+        weightOfO = undefined;
         checkGameStatus();
     }
     console.log("weight", weight);
@@ -146,18 +150,21 @@ const handleCellClick = (e) => {
 
 
 //Player's Weights Handle
-let weightOfX;
-let weightOfO;
+let weightOfX = undefined;
+let weightOfO = undefined;
+
 const handlePlayerX = (e) => {
-    weightOfX = parseInt(e.target.innerText);
-    e.target.innerText='X';
-    console.log(weightOfX);
+    if (isXNext) {
+        weightOfX = parseInt(e.target.innerText);
+        e.target.innerText = 'X';
+    }
 }
 
 const handlePlayerO = (e) => {
-    weightOfO = parseInt(e.target.innerText);
-    e.target.innerText = '0';
-    console.log(weightOfX);
+    if (!isXNext) {
+        weightOfO = parseInt(e.target.innerText);
+        e.target.innerText = '0';
+    }
 }
 
 
@@ -177,3 +184,18 @@ reset.addEventListener('click', handleReset);
 for (const cell of cells) {
     cell.addEventListener('click', handleCellClick);
 }
+
+
+//Modal Handle  
+let modal = document.querySelector('.modal');
+let btn = document.querySelector('.rules');
+let span = document.querySelector('.close');
+
+const handleBtnClick = (e) => {
+    modal.style.display = "block";
+}
+const handleCloseClick = (e) => {
+    modal.style.display = "none";
+}
+btn.addEventListener('click', handleBtnClick);
+span.addEventListener("click", handleCloseClick);
