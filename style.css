@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --bodyColor:#545454;
+    --bgColor:#14bdac;
+    --textColorPrimary:#f2ebd3;
+    --textColorSecondary:#b1c2c0;
+    --winColor:#545454;
+    --xSymbol:#e5eec1;
+    --oSymbol:#a2d5ac;
+}
+
+body{   
+    display: flex;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    color: var(--bodyColor);
+}
+.container{
+    background-color: var(--bgColor);
+    margin: 50px;
+    padding: 50px;
+    border-radius: 25px;
+}
+
+.title-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.underline{
+    width: 300px;
+    height: 6px;
+    background-color: var(--textColorPrimary);
+}
+
+.status-section{
+    display: flex;
+    margin-top: 25px;
+    justify-content: space-around;
+    font-size: 25px
+}
+
+.status span{
+    color: var(--textColorPrimary);
+}
+
+.reset{
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.reset:hover{
+    color: var(--textColorPrimary);
+}
+
+.game-board{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat (3, 1fr );
+    grid-gap: 15px;
+    margin-top: 50px;
+    background-color: var(--textColorSecondary);
+}
+.game-cell{
+    background-color: var(--bgColor);
+    cursor: pointer;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 225px;
+    color: var(--textColorPrimary);
+}
+.x::after {
+  content: '×';
+  font-size: 200px;
+  color: var(--xSymbol);
+}
+.o::after {
+  content: '○';
+  font-size: 225px;
+  color: var(--oSymbol);
+}
+
+
+.won::after{
+    color: var(--winColor);
+}
