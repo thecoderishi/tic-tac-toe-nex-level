@@ -23,10 +23,6 @@ body {
 }
 
 .rules {
-    /* display: inline; */
-    /* margin: 10px auto; */
-    /* margin-top: 10px; */
-    /* text-align: center; */
     position: fixed;
     right: 20px;
     bottom: 20px;
@@ -112,7 +108,7 @@ body {
     display: flex;
     margin-top: 20px;
     justify-content: space-around;
-    font-size: 25px
+    font-size: 25px;
 }
 
 .status span {
