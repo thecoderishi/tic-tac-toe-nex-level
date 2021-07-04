@@ -16,7 +16,6 @@ let isXNext = true
 
 //Winner Declaration
 const whoWon = (symbol) => {
-    console.log(symbol)
     isGameLive = false
     if (symbol === 'x') {
         status.innerHTML = `<span>${xSymbol} has won!</span>`
@@ -138,7 +137,6 @@ const handleCellClick = (e) => {
         weightOfO = undefined
         checkGameStatus()
     }
-    console.log('weight', weight)
 }
 
 //Player's Weights Handle
@@ -147,13 +145,22 @@ let weightOfO = undefined
 
 const handlePlayerX = (e) => {
     if (isXNext && weightOfX === undefined) {
+        if (e.target.innerText == 'X') {
+            alert('Aleardy Used')
+            return
+        }
         weightOfX = parseInt(e.target.innerText)
+        console.log(typeof weightOfX)
         e.target.innerText = 'X'
     }
 }
 
 const handlePlayerO = (e) => {
     if (!isXNext && weightOfO === undefined) {
+        if (e.target.innerText == '0') {
+            alert('Aleardy Used')
+            return
+        }
         weightOfO = parseInt(e.target.innerText)
         e.target.innerText = '0'
     }
