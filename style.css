@@ -178,7 +178,6 @@ body {
 
 .player-o {
     display: grid;
-    margin-top: 20px;
     margin-bottom: 10px;
     grid-template-columns: repeat(6, 1fr);
     justify-content: center;
@@ -233,15 +232,15 @@ body {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat (3, 1fr);
     grid-gap: 15px;
-    margin-top: 50px;
+    margin: 20px 0;
     background-color: var(--textColorSecondary);
 }
 
 .game-cell {
     background-color: var(--bgColor);
     cursor: pointer;
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -253,6 +252,11 @@ body {
     content: '×';
     font-size: 200px;
     color: var(--xSymbol);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    overflow: hidden;
 }
 
 .o::after {
